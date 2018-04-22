@@ -2,6 +2,7 @@ package com.example.muhammad.moviereview;
 
 import android.app.LoaderManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -12,6 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -69,7 +73,20 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         Log.d(LOG_TAG, "OnLoadFinished");
 
     }
-
+//option menu
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+//click event on option menu
+//to direct to bookmarks activity
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent=new Intent(this,bookmarks.class);
+        startActivity(intent);
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
