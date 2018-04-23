@@ -1,12 +1,9 @@
-package com.example.muhammad.moviereview;
+package com.cocoon.movies.moviereview.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.util.Log;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,23 +11,28 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.InputStream;
+import com.cocoon.movies.moviereview.R;
+import com.cocoon.movies.moviereview.dto.Movie;
+import com.cocoon.movies.moviereview.tasks.DownloadImageTask;
+
 import java.util.ArrayList;
 
-/**
- * Created by Muhammad on 4/21/2018.
- */
 
+/**
+ *
+ */
 public class MovieAdapter extends ArrayAdapter<Movie> {
     public MovieAdapter(Context context, ArrayList<Movie> Movies) {
-
         super(context, 0, Movies);
     }
-    public View getView(int position, View convertView, ViewGroup parent) {
+
+    @NonNull
+    @Override
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
         View listItemView = convertView;
 
-        if(listItemView == null) {
+        if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
                     R.layout.list_item, parent, false);
         }
@@ -50,7 +52,7 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
 
 
         TextView ratingView = (TextView) listItemView.findViewById(R.id.rating);
-               ratingView.setText(currentMovie.getmRating());
+        ratingView.setText(currentMovie.getmRating());
         // Find the ImageView in the list_item.xml layout
         // Get the image resource ID from the current Movie object
 
@@ -70,34 +72,10 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
         return listItemView;
     }
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
-    }
-
-    private void openURL(String url){
+    private void openURL(String url) {
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
         getContext().startActivity(i);
     }
+
 }
