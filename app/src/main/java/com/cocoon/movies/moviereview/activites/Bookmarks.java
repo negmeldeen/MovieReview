@@ -1,9 +1,14 @@
-package com.example.muhammad.moviereview;
+package com.cocoon.movies.moviereview.activites;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
-public class bookmarks extends AppCompatActivity {
+import com.cocoon.movies.moviereview.R;
+
+/**
+ *
+ */
+public class Bookmarks extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

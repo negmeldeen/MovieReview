@@ -1,4 +1,4 @@
-package com.example.muhammad.moviereview;
+package com.cocoon.movies.moviereview;
 
 import org.junit.Test;
 

@@ -1,19 +1,21 @@
-package com.example.muhammad.moviereview;
+package com.cocoon.movies.moviereview.api;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 
+import com.cocoon.movies.moviereview.dto.Movie;
+import com.cocoon.movies.moviereview.utils.QueryUtils;
+import com.google.common.base.Preconditions;
+
 import java.util.List;
 
-/**
- * Created by Muhammad on 4/22/2018.
- */
 
-public class MovieLoader extends AsyncTaskLoader<List<Movie>>{
+/**
+ *
+ */
+public class MovieLoader extends AsyncTaskLoader<List<Movie>> {
 
     private String mUrl;
-
-    private static final String LOG_TAG = MovieLoader.class.getName();
 
     public MovieLoader(Context context, String url) {
         super(context);
@@ -27,12 +29,9 @@ public class MovieLoader extends AsyncTaskLoader<List<Movie>>{
 
     @Override
     public List<Movie> loadInBackground() {
-        if (mUrl == null) {
-            return null;
-        }
+        Preconditions.checkNotNull(mUrl, "Movie review url was Empty");
 
         // Perform the network request, parse the response, and extract a list of Movies.
-        List<Movie> movies = QueryUtils.fetchMovieData(mUrl);
-        return movies;
+        return QueryUtils.fetchMovieData(mUrl);
     }
 }

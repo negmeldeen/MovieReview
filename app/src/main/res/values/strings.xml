@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Movie Review</string>
+    <string name="checkYourConnection">Unable to featch Information. Please, check your connection!</string>
 </resources>
