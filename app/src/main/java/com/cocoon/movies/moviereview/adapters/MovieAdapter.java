@@ -4,14 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cocoon.movies.moviereview.R;
+import com.cocoon.movies.moviereview.dao.Bookmark;
 import com.cocoon.movies.moviereview.dto.Movie;
 import com.cocoon.movies.moviereview.tasks.DownloadImageTask;
 
@@ -65,6 +68,30 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
             @Override
             public void onClick(View view) {
                 openURL(currentMovie.getmReviewLink().toString());
+            }
+        });
+
+        //Imageview bookmark
+        final ImageView bookmarkButton = listItemView.findViewById(R.id.bookmark_icon);
+
+        if(Bookmark.bookmarks.containsKey(currentMovie.getmReviewLink().toString())){
+            // already in bookmarks
+            bookmarkButton.setImageResource(R.drawable.star2);
+        }else{
+             bookmarkButton.setImageResource(R.drawable.star1);
+        }
+        bookmarkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(Bookmark.bookmarks.containsKey(currentMovie.getmReviewLink().toString())){
+                    // already in bookmarks
+                    Toast.makeText(getContext(),currentMovie.getmTitle() +" Already in Bookmarks",Toast.LENGTH_SHORT).show();
+                }else{
+                    Bookmark.bookmarks.put(currentMovie.getmReviewLink().toString(),currentMovie);
+                    Toast.makeText(getContext(),"Added "+ currentMovie.getmTitle() +" successfully to bookmarks",Toast.LENGTH_SHORT).show();
+                    bookmarkButton.setImageResource(R.drawable.star2);
+                }
+
             }
         });
         // Return the whole list item layout.

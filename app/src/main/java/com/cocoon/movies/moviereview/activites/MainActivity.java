@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
@@ -35,9 +36,6 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
     private static final int MOVIE_LOADER_ID = 1;
     private MovieAdapter mAdapter;
     private String movieQuery = "";
-    private TextView mEmptyStateTextView;
-    private ProgressBar mProgressBar;
-    private SearchView mSearchView;
 
 
     @Override
@@ -87,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         // Find a reference to the  ListView in the layout
         ListView MovieListView = (ListView) findViewById(R.id.list);
 
+
         // Create a new {@link ArrayAdapter} of Movies.
         mAdapter = new MovieAdapter(this, new ArrayList<Movie>());
 
@@ -112,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
             }
         });
 
+
         // testing for network connectivity
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         Preconditions.checkNotNull(cm);
@@ -122,8 +122,6 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
             LoaderManager loaderManager = getLoaderManager();
             loaderManager.initLoader(MOVIE_LOADER_ID, null, this);
         } else {
-            mProgressBar.setVisibility(View.GONE);
-            mEmptyStateTextView.setText(R.string.checkYourConnection);
         }
     }
 
